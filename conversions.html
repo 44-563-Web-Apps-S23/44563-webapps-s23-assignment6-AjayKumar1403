@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Conversions</title>
+</head>
+ 
+<body>
+
+<h1>Shows Currency Conversions</h1>
+<label for="firstValue">Enter base amount</label>
+<input id="firstValue" type="number" value="50" >
+
+<label for="secondValue">Enter the conversion rate</label>
+<input id="secondValue" type="number" value="35" >
+
+<input type="button" value="Show conversions " onclick="convert()">
+
+<p id="result">This text will be replaced </p> 
+
+<script> 
+
+
+
+function convert(){
+    let firstValue = document.getElementById("firstValue").value;
+    let secondValue = document.getElementById("secondValue").value;
+    let toShow = "";
+    for(let i = 1 ; i<24;  i=i*2){
+       toShow +=  firstValue * i + " is "+ secondValue * (firstValue * i)  + " ";
+    }
+
+    document.getElementById("result").innerHTML = (toShow);
+}
+
+
+</script>
+
+</body>
+</html> 
