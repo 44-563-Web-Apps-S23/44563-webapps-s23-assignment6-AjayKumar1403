@@ -9,29 +9,97 @@
 
 <h1>Shows Currency Conversions</h1>
 <label for="firstValue">Enter base amount</label>
-<input id="firstValue" type="number" value="50" >
+<input id="firstValue" type="number" value="50" > <br> <br>
 
 <label for="secondValue">Enter the conversion rate</label>
-<input id="secondValue" type="number" value="35" >
+<input id="secondValue" type="number" value="35" > <br> <br>
 
 <input type="button" value="Show conversions " onclick="convert()">
 
 <p id="result">This text will be replaced </p> 
 
+
+<form>
+    
+    <input type="radio"  name="calculate" value="mean" id="average">
+    <label for="average">average</label>
+    <br> <br>
+    
+    <input type="radio"  name="calculate" value="maximum" id="max"> 
+    <label for="max">max</label>
+    <br> <br>
+   
+    <input type="radio"  name="calculate" value="minimum" id="min"> 
+    <label for="average">min</label>
+    <br> <br>
+
+</form>
+
+
+<input type="button" value="Values from the radio group" onclick="chooseOp()">
+
+
+<p id="result1">This text will be replaced</p>
+
 <script> 
 
+// let firstValue = document.getElementById("firstValue").value;
+// let secondValue = document.getElementById("secondValue").value;
+function convert() 
+        {
+
+            ba = document.getElementById("firstValue").value;
+            conversionrate = document.getElementById("secondValue").value;
+            ts = ""
+            for (i = 1; i <= 5; i++) {
+                ts = ba + " is " + Math.round(conversionrate * ba * 100) / 100 + "; " +
+                    ba * 2 + " is " + Math.round(conversionrate * ba * 2 * 100) / 100 + "; " +
+                    ba * 4 + " is " + Math.round(conversionrate * ba * 4 * 100) / 100 + "; " +
+                    ba * 8 + " is " + Math.round(conversionrate * ba * 8 * 100) / 100 + "; " +
+                    ba * 16 + " is " + Math.round(conversionrate * ba * 16 * 100) / 100 + "; "
+            }
+            out = document.getElementById("result");
+            if (ts) 
+            {
+                out.innerHTML = "Conversions are: " + ts
+            }
+        }
 
 
-function convert(){
-    let firstValue = document.getElementById("firstValue").value;
-    let secondValue = document.getElementById("secondValue").value;
-    let toShow = "";
-    for(let i = 1 ; i<24;  i=i*2){
-       toShow +=  firstValue * i + " is "+ secondValue * (firstValue * i)  + " ";
-    }
+        function chooseOp() {
+            const base = parseFloat(document.getElementById("firstValue").value);
+            const conversion = parseFloat(document.getElementById("secondValue").value);
+            const operation = document.querySelector('input[name="calculate"]:checked').value;
+           
+            out=document.getElementById("result1")
+            let result1;
+            switch (operation) {
+                case "mean":
+                    result1 = (base + conversion) / 2;
+                    out.innerHTML = "Average of " + base + " and " + conversion + " is " + result1
+                    break;
+                case "maximum":
+                    if (base > conversion)
+                        result1 = base
+                    else
+                        result1 = conversion
 
-    document.getElementById("result").innerHTML = (toShow);
-}
+                    out.innerHTML = "Max of " + base + " and " + conversion + " is " + result1
+                    break;
+                case "minimum": 
+                    if (base < conversion)
+                        result1 = base
+                    else
+                        result1 = conversion
+
+                    out.innerHTML = "Min of " + base + " and " + conversion + " is " + result1
+                    break;
+                default:
+                    result1 = "";
+            }
+
+            document.getElementById("result1").innerHTML = `${operation} of ${base} and ${conversion} is ${result1}`;
+        }
 
 
 </script>
